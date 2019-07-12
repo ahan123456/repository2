@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="target" class="cn.itcast.TargetInterface"></bean>  <!--切点-->
+
+    <bean id="aspect" class="cn.itcast.Aspect"></bean>    <!--切面-->
+
+    <aop:config>
+        <aop:aspect ref="aspect">
+            <aop:pointcut id="pointcut" expression="execution(* cn.itcast.TargetInterface.*(..))"/>
+            <aop:before method="before" pointcut-ref="pointcut"></aop:before>
+            <aop:around method="around" pointcut-ref="pointcut"></aop:around>
+            <aop:after-returning method="afterReturning" pointcut-ref="pointcut"></aop:after-returning>
+            <aop:after-throwing method="throwing" pointcut-ref="pointcut"></aop:after-throwing>
+            <aop:after method="after" pointcut-ref="pointcut"></aop:after>
+        </aop:aspect>
+
+    </aop:config>
+
+   <!-- <aop:config>
+        &lt;!&ndash;<aop:aspect ref="aspect">
+            <aop:before method="before" pointcut="execution(public void cn.itcast.TargetInterface.save())"></aop:before>
+        </aop:aspect>&ndash;&gt;
+        <aop:aspect ref="aspect">
+            <aop:before method="afterReturning" pointcut="execution(public void cn.itcast.TargetInterface.save())"></aop:before>
+        </aop:aspect>
+    </aop:config>-->
+
+
+
+
+</beans>
